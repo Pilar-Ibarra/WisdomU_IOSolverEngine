@@ -16,9 +16,7 @@ $$
 The model organizes the data into a **technological coefficient matrix** that represents resource consumption.
 ### Capacity Constraints
 These represent the operational limits of the system (e.g., available hours, materials, labor):
-$$
-\sum_{j=1}^{n} a_{ij} x_j \leq b_i \quad \text{for } i = 1,2,\dots,m
-$$
+$$\sum_{j=1}^{n} a_{ij} x_j \leq b_i \quad \text{for } i = 1,2,\dots,m$$
 **Where:**
 * $a_{ij}$ → Technological coefficient (amount of resource $i$ consumed by product $j$)
 * $b_i$ → Total availability of resource $i$

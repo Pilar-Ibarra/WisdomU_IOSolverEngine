@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import list
 class OptimizationModel:
     def __init__(self, n: int):
         self.n = n
@@ -7,9 +7,9 @@ class OptimizationModel:
     def objective_function(self,x:list[float])->float:
         pass
     @abstractmethod
-    def cumple_restricciones(self,x:list[float])->bool:
+    def check_constraints(self,x:list[float])->bool:
         pass
-    def no_negatividad(self,x:list[float])->bool:
+    def check_non_negativity(self,x:list[float])->bool:
         for i in range(self.n):
             if x[i]<0:
                 return False

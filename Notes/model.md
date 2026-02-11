@@ -27,7 +27,7 @@ $$x_j \geq 0 \quad \text{for } j = 1,2,\dots,n$$
 
 ## Standard Form
 Maximize:
-Z = c^T x
+$Z = {c}^{T} x $
 Subject to:
-Ax ≤ b  
-x ≥ 0
+$Ax ≤ b$
+$x ≥ 0$

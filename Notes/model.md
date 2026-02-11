@@ -4,9 +4,7 @@
 
 ## 1. Objective Function ($Z$)
 The main objective is to **maximize total profit**.
-$$
-Z = \sum_{j=1}^{n} c_j x_j
-$$
+$$Z = \sum_{j=1}^{n} c_j x_j$$
 **Where:**
 * $Z$ → Total profit to be maximized
 * $c_j$ → Unit contribution margin (profit) of product $j$

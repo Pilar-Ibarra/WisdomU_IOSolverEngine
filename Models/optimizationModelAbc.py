@@ -1,10 +1,21 @@
 from abc import ABC, abstractmethod
 from typing import list
-class OptimizationModel:
+class OptimizationModel(ABC):
     def __init__(self, n: int):
         self.n = n
     @abstractmethod
     def objective_function(self,x:list[float])->float:
+        pass
+    @abstractmethod
+    def get_objective_coefficients(self) -> list[float]:
+        pass
+
+    @abstractmethod
+    def get_constraint_matrix(self) -> list[list[float]]:
+        pass
+
+    @abstractmethod
+    def get_rhs_vector(self) -> list[float]:
         pass
     @abstractmethod
     def check_constraints(self,x:list[float])->bool:

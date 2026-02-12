@@ -9,7 +9,14 @@ class Lineal_Model(OptimizationModel):
         self.avaibility_resources = avaibility_resources #vector de disponibilidad de recursos
         self.profit_vector = profit_vector #vector de ganancia por producto
         self.n = len(consumption_matrix) #numero de productos
+    def get_objective_coefficients(self):#devuelve el vector de ganancias por producto
+        return self.profit_vector
 
+    def get_constraint_matrix(self): #devuelve la matriz de consumo de recursos por producto
+        return self.consumption_matrix
+
+    def get_rhs_vector(self): #devuelve el vector de disponibilidad de recursos
+        return self.avaibility_resources
     def objective_function(self,x:list[float])->float:#dado un vector x ¿cuanto gano? 
         z=0.0
         for i in range(self.n): 
@@ -23,5 +30,5 @@ class Lineal_Model(OptimizationModel):
             total_consumption+=self.consumption_matrix[i][j]*x[i] #consumo del recurso j por el producto i multiplicado por la cantidad de producto i que se va a producir
         if total_consumption>self.avaibility_resources[j]:
             return False
-        return True
+      return True
         

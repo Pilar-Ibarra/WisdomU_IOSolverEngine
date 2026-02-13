@@ -26,11 +26,11 @@ class Lineal_Model(OptimizationModel):
             z+=self.profit_vector[i]*x[i] 
         return z
     def check_constraints(self,x:list[float])->bool:
-      for j in range(len(self.avaibility_resources)): #para cada recurso
-        total_consumption=0.0
-        for i in range(self.n): #para cada producto
-            total_consumption+=self.consumption_matrix[i][j]*x[i] #consumo del recurso j por el producto i multiplicado por la cantidad de producto i que se va a producir
-        if total_consumption>self.avaibility_resources[j]:
-            return False
-      return True
+        for j in range(self.m):
+            total = 0
+            for i in range(self.n):
+                total += self.consumption_matrix[i][j] * x[i]
+            if total > self.avaibility_resources[j]:
+                return False
+        return True
         

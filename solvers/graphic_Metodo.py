@@ -5,7 +5,7 @@ class GraphicMetod(Solver):
       def __init__(self,model:lineal_model):
         self.model=model
       def two_desitions (self,x):
-        if len(x) != 2:
+        if self.model.num_variables != 2:
             raise ValueError("El problema debe tener solo 2 variables")
       def convertir_restricciones_a_rectas(self):
         pass
@@ -22,3 +22,9 @@ class GraphicMetod(Solver):
 #investigar convexos
       def encontrar_solucion_optima(self):
          pass
+      def solve(self):
+         self._validate_two_variables()
+         rectas = self._convert_constraints()
+         puntos = self._compute_intersections(rectas)
+         puntos_validos = self._filter_feasible(puntos)
+         return self._select_best(puntos_validos)

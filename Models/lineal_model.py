@@ -1,36 +1,52 @@
 
 from typing import List
 from .optimizationModelAbc import OptimizationModel
-class Lineal_Model(OptimizationModel):
-    #self es el equivalente a this en otros lenguajes
-    def __init__(self,consumption_matrix:List[List[float]],avaibility_resources: List[float],profit_vector: List[float]):
-        super().__init__(len(consumption_matrix))
-        self.consumption_matrix = consumption_matrix #matriz de consumo de recursos por producto
-        if len(profit_vector) != len(consumption_matrix): #el vector de ganancias por producto debe tener el mismo tamaño que el número de productos
-            raise ValueError("Profit vector size must match number of products.")
-        if len(consumption_matrix[0]) != len(avaibility_resources):#el número de columnas de la matriz de consumo de recursos por producto debe ser igual al tamaño del vector de disponibilidad de recursos
-            raise ValueError("Matrix columns must match number of resources.")
-        self.avaibility_resources = avaibility_resources #vector de disponibilidad de recursos
-        self.profit_vector = profit_vector #vector de ganancia por producto
-        self.n = len(consumption_matrix) #numero de productos
-    def get_objective_coefficients(self):#devuelve el vector de ganancias por producto
-        return self.profit_vector
-    def get_constraint_matrix(self): #devuelve la matriz de consumo de recursos por producto
-        return self.consumption_matrix
-    def get_rhs_vector(self): #devuelve el vector de disponibilidad de recursos
-        return self.avaibility_resources
-    def objective_function(self,x:list[float])->float:#dado un vector x ¿cuanto gano? 
-        z=0.0
-        for i in range(self.n): 
-#ganancia por producto i multiplicado por la cantidad de producto i que se va a producir
-            z+=self.profit_vector[i]*x[i] 
-        return z
-    def check_constraints(self,x:list[float])->bool:
+
+class LinearModel(OptimizationModel):
+
+    def __init__(self, A: List[List[float]], b: List[float], c: List[float]):
+        """
+        A: matriz m x n (m restricciones, n variables)
+        b: vector tamaño m
+        c: vector tamaño n
+        """
+        m = len(A)
+        if m == 0:
+            raise ValueError("Constraint matrix A cannot be empty.")
+        n = len(A[0])
+        if len(c) != n:
+            raise ValueError("Objective coefficient vector size must match number of variables.")
+        if len(b) != m:
+            raise ValueError("RHS vector size must match number of constraints.")
+        for row in A:
+            if len(row) != n:
+                raise ValueError("All rows in matrix A must have the same length.")
+        super().__init__(n)
+        self.A= A
+        self.b = b
+        self.c = c
+        self.m = m  # número de restricciones
+        self.n = n  # número de variables
+    def get_objective_coefficients(self) -> List[float]:
+        return self.c
+    def get_constraint_matrix(self) -> List[List[float]]:
+        return self.A
+    def get_rhs_vector(self) -> List[float]:
+        return self.b
+    def objective_function(self, x: List[float]) -> float:
+        if len(x) != self.n:
+            raise ValueError("Decision vector dimension mismatch.")
+        return sum(self.c[i] * x[i] for i in range(self.n))
+    def check_constraints(self, x: List[float]) -> bool:
+        if len(x) != self.n:
+            raise ValueError("Decision vector dimension mismatch.")
+
         for j in range(self.m):
-            total = 0
-            for i in range(self.n):
-                total += self.consumption_matrix[i][j] * x[i]
-            if total > self.avaibility_resources[j]:
+            total = sum(self.A[j][i] * x[i] for i in range(self.n))
+            if total > self.b[j]:
                 return False
+
         return True
-        
+
+    def is_feasible(self, x: List[float]) -> bool:
+        return self.check_constraints(x) and self.check_non_negativity(x)

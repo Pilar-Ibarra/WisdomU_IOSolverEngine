@@ -13,6 +13,7 @@
 - `models/`: Contains the logic of mathematical models and the abstract base class.
 - `solvers/`: Implementation of solving algorithms (e.g., Simplex, heuristic methods).
 - `utils/`: Auxiliary tools for data processing and validation.
+- `notes/`:Descriptions of the operation the programmed modules and theory on which they are based.
 
 ## Technologies Used
 - **Language:** Python 3.x

@@ -22,9 +22,9 @@ class LinearModel(OptimizationModel):
             if len(row) != n:
                 raise ValueError("All rows in matrix A must have the same length.")
         super().__init__(n)
-        self.A= A
-        self.b = b
-        self.c = c
+        self.A= A #matriz de restricciones
+        self.b = b #vector de términos independientes
+        self.c = c #vector de coeficientes de la función objetivo
         self.m = m  # número de restricciones
         self.n = n  # número de variables
     def get_objective_coefficients(self) -> List[float]:
@@ -45,8 +45,6 @@ class LinearModel(OptimizationModel):
             total = sum(self.A[j][i] * x[i] for i in range(self.n))
             if total > self.b[j]:
                 return False
-
         return True
-
     def is_feasible(self, x: List[float]) -> bool:
         return self.check_constraints(x) and self.check_non_negativity(x)

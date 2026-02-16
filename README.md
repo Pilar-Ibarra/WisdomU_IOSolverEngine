@@ -16,7 +16,7 @@
 - `notes/`:Descriptions of the operation the programmed modules and theory on which they are based.
 
 ## Technologies Used
-- **Language:** Python 3.x
+- **Language:** Python 3.14.3
 - **Environment:** VS Code + Git
 - **Core Theory:** *Introduction to Operations Research* (Hillier & Lieberman, 9th Ed).
 

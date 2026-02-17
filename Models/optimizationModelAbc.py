@@ -2,8 +2,8 @@ import json
 from abc import ABC, abstractmethod
 from typing import List
 class OptimizationModel(ABC):
-    def __init__(self,nombre):
-        self.nombre=nombre
+    def __init__(self,name):
+        self.name=name
         self.nVariables=[]
         self.tipo_modelo=""
     @abstractmethod

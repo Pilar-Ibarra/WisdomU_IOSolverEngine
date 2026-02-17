@@ -2,9 +2,9 @@ import json
 from typing import List
 from .optimizationModelAbc import OptimizationModel
 class LinearModel(OptimizationModel):
-    def __init__(self,nombre):
-      super().__init__(nombre)
-      self.type_model="Lineal"
+    def __init__(self,name):
+      super().__init__(name) #constructor heredado
+      self.type_model="Linear"
       self.c: List[float] = []  # Coeficientes de la función objetivo
       self.A: List[List[float]] = []  # Matriz de coeficientes de las restricciones
       self.b: List[float] = []  # Vector de términos independientes de las restricciones
@@ -46,6 +46,5 @@ class LinearModel(OptimizationModel):
         return True,"Check passed"
     def check_non_negativity(self,x:List[float])->bool:
         return super().check_non_negativity(x)
-        
     def is_feasible(self, x: List[float]) -> bool:
         return self.check_constraints(x)[0] and self.check_non_negativity(x)

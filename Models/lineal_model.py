@@ -6,7 +6,7 @@ class LinearModel(OptimizationModel):
 
     def __init__(self,nombre):
       super().__init__(nombre)
-      self.tipo_modelo="Lineal"
+      self.type_model="Lineal"
       self.c: List[float] = []  # Coeficientes de la función objetivo
       self.A: List[List[float]] = []  # Matriz de coeficientes de las restricciones
       self.b: List[float] = []  # Vector de términos independientes de las restricciones
@@ -23,12 +23,18 @@ class LinearModel(OptimizationModel):
             self.symbols=[r.get("type","<=") for r in data['constraints']]
             self.non_negativity=data.get("non_negativity",True)
             return self
+
     def get_objective_coefficients(self) -> List[float]:
-        return self.c
+        return self.c.copy()# Devolvemos una copia para evitar modificaciones externas
     def get_constraint_matrix(self) -> List[List[float]]:
-        return self.A
+        return [fila.copy() for fila in self.A]
     def get_rhs_vector(self) -> List[float]:
-        return self.b
+        return self.b.copy()
+    def get_Symbols(self):
+        return self.symbols
+    def get_constraints_types(self):
+        return super().get_constraints_types()
+    
     def objective_function(self, x: List[float]) -> float:
         if len(x) != self.n:
             raise ValueError("Decision vector dimension mismatch.")

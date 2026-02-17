@@ -1,31 +1,28 @@
+import json
 from typing import List
 from .optimizationModelAbc import OptimizationModel
 
 class LinearModel(OptimizationModel):
 
-    def __init__(self, A: List[List[float]], b: List[float], c: List[float]):
-        """
-        A: matriz m x n (m restricciones, n variables)
-        b: vector tamaño m
-        c: vector tamaño n
-        """
-        m = len(A)
-        if m == 0:
-            raise ValueError("Constraint matrix A cannot be empty.")
-        n = len(A[0])
-        if len(c) != n:
-            raise ValueError("Objective coefficient vector size must match number of variables.")
-        if len(b) != m:
-            raise ValueError("RHS vector size must match number of constraints.")
-        for row in A:
-            if len(row) != n:
-                raise ValueError("All rows in matrix A must have the same length.")
-        super().__init__(n)
-        self.A= A #matriz de restricciones
-        self.b = b #vector de términos independientes
-        self.c = c #vector de coeficientes de la función objetivo
-        self.m = m  # número de restricciones
-        self.n = n  # número de variables
+    def __init__(self,nombre):
+      super().__init__(nombre)
+      self.tipo_modelo="Lineal"
+      self.c: List[float] = []  # Coeficientes de la función objetivo
+      self.A: List[List[float]] = []  # Matriz de coeficientes de las restricciones
+      self.b: List[float] = []  # Vector de términos independientes de las restricciones
+      self.symbols: List[str] = []  # Tipos de restricciones (<=, >=, =)
+      self.max_or_min: str = "max"  # Indica si es maximización
+      def from_json(self,archive):
+          with open(archive,'r') as f:
+            data=json.load(f)
+            self.c = data['objective']["coefficients"]
+            self.A = data['constraints']["symbols"]
+            self.b = data['nVariables']["names"]
+            self.A=[r['coefficients']for r in data['constraints']]
+            self.b=[r['rhs']for r in data['constraints']]
+            self.symbols=[r.get("type","<=") for r in data['constraints']]
+            self.non_negativity=data.get("non_negativity",True)
+            return self
     def get_objective_coefficients(self) -> List[float]:
         return self.c
     def get_constraint_matrix(self) -> List[List[float]]:

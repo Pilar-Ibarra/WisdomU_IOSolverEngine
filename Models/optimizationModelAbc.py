@@ -10,23 +10,26 @@ class OptimizationModel(ABC):
     def to_json(self,archive):
               #metodo abstracto para guardar el modelo en un archivo json
         pass
-    def dataMatrix(self):
-        pass
+    def from_json(self,archive):
+        pass #metodo para cargar el modelo desde un archivo json.
+    #getters
     @abstractmethod
     def objective_function(self,x:List[float])->float:
         pass
     @abstractmethod
     def get_objective_coefficients(self) -> List[float]:
         pass
-
     @abstractmethod
     def get_constraint_matrix(self) -> List[List[float]]:
         pass
-
     @abstractmethod
     def get_rhs_vector(self) -> List[float]:
         pass
-    @abstractmethod
+    def get_max_or_min(self):
+        pass
+    def get_constraints_types(self):
+        pass
+    #metodos para verificar restricciones y factibilidad
     def check_constraints(self,x:List[float])->bool:
         pass
     def check_non_negativity(self,x:List[float])->bool:

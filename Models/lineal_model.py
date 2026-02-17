@@ -1,9 +1,7 @@
 import json
 from typing import List
 from .optimizationModelAbc import OptimizationModel
-
 class LinearModel(OptimizationModel):
-
     def __init__(self,nombre):
       super().__init__(nombre)
       self.type_model="Lineal"
@@ -23,7 +21,6 @@ class LinearModel(OptimizationModel):
             self.symbols=[r.get("type","<=") for r in data['constraints']]
             self.non_negativity=data.get("non_negativity",True)
             return self
-
     def get_objective_coefficients(self) -> List[float]:
         return self.c.copy()# Devolvemos una copia para evitar modificaciones externas
     def get_constraint_matrix(self) -> List[List[float]]:
@@ -34,19 +31,21 @@ class LinearModel(OptimizationModel):
         return self.symbols
     def get_constraints_types(self):
         return super().get_constraints_types()
-    
     def objective_function(self, x: List[float]) -> float:
         if len(x) != self.n:
             raise ValueError("Decision vector dimension mismatch.")
         return sum(self.c[i] * x[i] for i in range(self.n))
-    def check_constraints(self, x: List[float]) -> bool:
-        if len(x) != self.n:
-            raise ValueError("Decision vector dimension mismatch.")
-
-        for j in range(self.m):
-            total = sum(self.A[j][i] * x[i] for i in range(self.n))
-            if total > self.b[j]:
-                return False
-        return True
+    def check_constraints(self, x):
+        if len(self.A[0])
+        return False,"number of variables in constraints mismatch"
+        for i,row in enumerate(self.A):
+            if len(row)!=len(x):
+                return False,f"number of variables in constraint {i} mismatch"
+        if len(self.b)!=len(self.A):
+            return False,"number of constraints mismatch"
+        return True,"Check passed"
+    def check_non_negativity(self):
+        return super().check_non_negativity(x)
+        
     def is_feasible(self, x: List[float]) -> bool:
-        return self.check_constraints(x) and self.check_non_negativity(x)
+        return self.check_constraints(x)[0] and self.check_non_negativity(x)

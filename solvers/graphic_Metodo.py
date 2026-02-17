@@ -1,10 +1,13 @@
 from typing import List
+import matplotlib.pyplot as plt
+print("matpolib imported successfully")
 from .solverAbc import Solver
 from Models.lineal_model import lineal_model
 class GraphicMetod(Solver):
       def __init__(self,model:lineal_model):
         self.model=model
-      def check_twoVar (self,x):
+        solver=Solver()
+        solver.check_twoVar(self.model)
         if self.model.num_variables != 2:
             raise ValueError("El problema debe tener solo 2 variables")
       def convert_constraints_to_lines(self):

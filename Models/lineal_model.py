@@ -36,15 +36,15 @@ class LinearModel(OptimizationModel):
             raise ValueError("Decision vector dimension mismatch.")
         return sum(self.c[i] * x[i] for i in range(self.n))
     def check_constraints(self, x):
-        if len(self.A[0])
-        return False,"number of variables in constraints mismatch"
+        if len(self.A[0]):
+            return False,"number of variables in constraints mismatch"
         for i,row in enumerate(self.A):
             if len(row)!=len(x):
                 return False,f"number of variables in constraint {i} mismatch"
         if len(self.b)!=len(self.A):
             return False,"number of constraints mismatch"
         return True,"Check passed"
-    def check_non_negativity(self):
+    def check_non_negativity(self,x:List[float])->bool:
         return super().check_non_negativity(x)
         
     def is_feasible(self, x: List[float]) -> bool:

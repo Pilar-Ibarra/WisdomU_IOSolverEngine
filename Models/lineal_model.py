@@ -10,11 +10,11 @@ class LinearModel(OptimizationModel):
         self.A: List[List[float]] = []  # Matriz de coeficientes de las restricciones
         self.b: List[float] = []        # Vector de términos independientes
         self.symbols: List[str] = []    # Tipos de restricciones (<=, >=, =)
-        self.max_or_min: str = "max"    # max o min
+        self.max_or_min: str = " "    # max o min
         self.non_negativity: bool = True
 
-    def from_json(self, archive):
-        with open(archive, 'r') as f:
+    def from_json(self, file):
+        with open(file, 'r') as f:
             data = json.load(f)
         self.c = data['objective']["coefficients"] 
         self.A = [r['coefficients'] for r in data['constraints']]
@@ -52,3 +52,23 @@ class LinearModel(OptimizationModel):
         return True
     def is_feasible(self, x: List[float]) -> bool:
         return self.check_constraints(x)[0] and (not self.non_negativity or self.check_non_negativity(x))
+    def to_json(self, file):
+        data={
+            "name":self.name,
+            "type_model":self.type_model,
+            "objective":{
+                "coefficients":self.c
+            },
+            "constraints":[{
+                "coefficients":self.A[i],
+                "rhs":self.b[i],
+                 "type": self.symbols[i]
+            }
+            for i in range(len(self.A))
+            ],
+            "non_negativity":self.non_negativity,
+            "max_or_min":self.max_or_min
+        }
+        with open(file,"w")as f:
+         json.dump(data,f,indent=4)
+  

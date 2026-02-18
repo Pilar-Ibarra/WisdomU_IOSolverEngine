@@ -5,7 +5,7 @@ class OptimizationModel(ABC):
     def __init__(self,name):
         self.name=name
         self.nVariables=[]
-        self.tipo_modelo=""
+        self.type_model=""
     @abstractmethod
     def to_json(self,archive):
               #metodo abstracto para guardar el modelo en un archivo json

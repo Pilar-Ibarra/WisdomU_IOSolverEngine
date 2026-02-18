@@ -27,13 +27,13 @@ class OptimizationModel(ABC):
         pass
     def get_max_or_min(self):
         pass
+    @abstractmethod
     def get_constraints_types(self):
         pass
+    @abstractmethod
     #metodos para verificar restricciones y factibilidad
     def check_constraints(self,x:List[float])->bool:
         pass
+    @abstractmethod
     def check_non_negativity(self,x:List[float])->bool:
-        for i in range(self.n):
-            if x[i]<0:
-                return False
-        return True
+        pass

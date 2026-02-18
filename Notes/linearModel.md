@@ -1,4 +1,4 @@
-# Lineal Model
+# Linear Model
 ## Production Optimization Model
 *Based on Hillier & Lieberman (9th Edition)*
 

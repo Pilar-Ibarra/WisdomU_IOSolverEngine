@@ -1,4 +1,5 @@
 import json
+import numpy
 from typing import List
 from .optimizationModelAbc import OptimizationModel
 
@@ -10,7 +11,7 @@ class LinearModel(OptimizationModel):
         self.A: List[List[float]] = []  # Matriz de coeficientes de las restricciones
         self.b: List[float] = []        # Vector de términos independientes
         self.symbols: List[str] = []    # Tipos de restricciones (<=, >=, =)
-        self.max_or_min: str = " "    # max o min
+        self.max_or_min: str =["max","min"]   # max o min
         self.non_negativity: bool = True
 
     def from_json(self, file):
@@ -36,20 +37,17 @@ class LinearModel(OptimizationModel):
         if len(x) != len(self.c):
             raise ValueError("Decision vector dimension mismatch.")
         return sum(self.c[i] * x[i] for i in range(len(self.c)))
-    def check_constraints(self, x: List[float]) -> tuple[bool, str]:
-        if not self.A:
-            return False, "No constraints defined"
+    def check_dimension_constraints(self,x:List[float])->bool:
+        #validación de dimensiones
         for i, row in enumerate(self.A):
             if len(row) != len(x):
                 return False, f"Number of variables in constraint {i} mismatch"
         if len(self.b) != len(self.A):
             return False, "Number of constraints mismatch"
         return True, "Check passed"
-    def check_non_negativity(self, x: List[float]) -> bool:
-        for val in x:
-            if val < 0:
-                return False
-        return True
+    #validación matematica:D-> crea ese metodo
+    def check_matemathic_constraints(self, x):
+        return super().check_matemathic_constraints(x)
     def is_feasible(self, x: List[float]) -> bool:
         return self.check_constraints(x)[0] and (not self.non_negativity or self.check_non_negativity(x))
     def to_json(self, file):

@@ -10,6 +10,7 @@ class OptimizationModel(ABC):
     def to_json(self,file):
               #metodo abstracto para guardar el modelo en un archivo json
         pass
+    @abstractmethod
     def from_json(self,file):
         pass #metodo para cargar el modelo desde un archivo json.
     #getters
@@ -32,8 +33,13 @@ class OptimizationModel(ABC):
         pass
     @abstractmethod
     #metodos para verificar restricciones y factibilidad
-    def check_constraints(self,x:List[float])->bool:
+    def check_dimension_constraints(self,x:List[float])->bool:
         pass
     @abstractmethod
-    def check_non_negativity(self,x:List[float])->bool:
+    def check_matemathic_constraints(self,x:List[float])->bool:
         pass
+    @abstractmethod
+    def constraints_report(self,x)->tuple[bool,str]:
+        pass
+    def check_non_negativity(self, x: List[float]) -> bool:
+        return all(val >= 0 for val in x)

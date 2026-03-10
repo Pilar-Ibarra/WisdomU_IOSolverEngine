@@ -13,15 +13,7 @@ class LinearModel(OptimizationModel):
         self.symbols: List[str] = []    # Tipos de restricciones (<=, >=, =)
         self.max_or_min: str = "max"  # "max" or "min"        self.non_negativity: bool = True
         #mueve el json hacia otra capa
-    def from_json(self, file):
-        with open(file, 'r') as f:
-            data = json.load(f)
-        self.c = data['objective']["coefficients"] 
-        self.A = [r['coefficients'] for r in data['constraints']]
-        self.b = [r['rhs'] for r in data['constraints']]
-        self.symbols = [r.get("type", "<=") for r in data['constraints']]
-        self.non_negativity = data.get("non_negativity", True)
-        return self
+    model = Linear_Model_parser.from_json("problem.json")
 
     def get_objective_coefficients(self) -> List[float]:
         return self.c.copy()

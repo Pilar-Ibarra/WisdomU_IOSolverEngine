@@ -2,7 +2,7 @@ from typing import List
 import matplotlib.pyplot as plt
 print("matpolib imported successfully")
 from .solverAbc import Solver
-from Models.lineal_model import lineal_model
+from Models.linear_model import lineal_model
 class GraphicMetod(Solver):
       def __init__(self,model:lineal_model):
         self.model=model

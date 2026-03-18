@@ -1,5 +1,5 @@
 import json
-from Models.lineal_model import LinearModel
+from Models.linear_model import LinearModel
 class Linear_Model_parser:
     @staticmethod
     def from_json(file):

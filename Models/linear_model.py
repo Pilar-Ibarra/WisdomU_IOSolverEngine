@@ -23,24 +23,24 @@ class LinearModel(OptimizationModel):
         return self.b.copy()
     def get_constraints_types(self) -> List[str]:
         return self.symbols.copy()
-
+#Dudas ira aqui o neh?
     def objective_function(self, x: List[float]) -> float:
      return float(numpy.dot(self.c, x))
     def check_dimension_constraints(self,x:List[float])->bool:
-        #validación de dimensiones,ya que Zip ignora estructuras de datos que no miden lo mismo, junta primero con primero
+        #validación de dimensiones,Zip recorre dos vectores a la vez posició a1 con A2 
         for i, row in enumerate(self.A):
             if len(row) != len(x):
                 return False, f"Number of variables in constraint {i} mismatch"
         if len(self.b) != len(self.A):
             return False, "Number of constraints mismatch"
         return True, "Check passed"
-    #validación matematica:D-> crea ese metodo
+    #validación matematica:D-> Hecha
     def check_mathematic_constraints(self, x: List[float]):
         for i, row in enumerate(self.A):
             lhs = sum(a * xi for a, xi in zip(row, x)) #vectores=producto punto, zip  recorre variables y coeficientes a la vez
             rhs = self.b[i]
             symbol = self.symbols[i]
-            #1e-9 es una tolerancia numerica de decimales
+            #1e-9 es una tolerancia numerica de decimales, en io se pueden acumular muchos decimales
             if symbol == "<=" and lhs > rhs + 1e-9:
                 return False, f"Constraint {i} violated: {lhs} > {rhs}"
 
@@ -53,24 +53,4 @@ class LinearModel(OptimizationModel):
         return True, "All constraints satisfied"
     def is_feasible(self, x: List[float]) -> bool:
      return self.check_constraints(x)[0] and (not self.non_negativity or self.check_non_negativity(x))
-    #Saca esta función es del parser :>
-    def to_json(self, file):
-        data={
-            "name":self.name,
-            "type_model":self.type_model,
-            "objective":{
-                "coefficients":self.c
-            },
-            "constraints":[{
-                "coefficients":self.A[i],
-                "rhs":self.b[i],
-                 "type": self.symbols[i]
-            }
-            for i in range(len(self.A))
-            ],
-            "non_negativity":self.non_negativity,
-            "max_or_min":self.max_or_min
-        }
-        with open(file,"w")as f:
-         json.dump(data,f,indent=4)
-  
+   

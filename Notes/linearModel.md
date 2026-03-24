@@ -10,8 +10,8 @@ $$Z = \sum_{j=1}^{n} c_j x_j$$
 * $c_j$ → Unit contribution margin (profit) of product $j$
 * $x_j$ → Decision variable (optimal production quantity of product $j$)
 
-## 2. Technical Constraints
-The model organizes the data into a **technological coefficient matrix** that represents resource consumption.
+## 2. Optimization Constraints
+The model organizes the data into a **coefficient matrix** that represents resource consumption.
 ### Capacity Constraints
 These represent the operational limits of the system (e.g., available hours, materials, labor):
 $$\sum_{j=1}^{n} a_{ij} x_j \leq b_i \quad \text{for } i = 1,2,\dots,m$$

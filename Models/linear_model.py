@@ -14,7 +14,7 @@ class LinearModel(OptimizationModel):
         self.symbols: List[str] = []    # Tipos de restricciones (<=, >=, =)
         self.max_or_min: str = "max"  # "max" or "min"        self.non_negativity: bool = True
         #mueve el json hacia otra capa
-    model = Linear_Model_parser.from_json("problem.json")# esto tambien para afuera
+    #model = Linear_Model_parser.from_json("problem.json")# esto tambien para afuera
     def get_objective_coefficients(self) -> List[float]:
         return self.c.copy()
     def get_constraint_matrix(self) -> List[List[float]]:

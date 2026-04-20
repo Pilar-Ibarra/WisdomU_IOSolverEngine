@@ -1,7 +1,7 @@
 import json
 import numpy
 from typing import List
-from Models.Linear_model_parser import Linear_Model_parser
+#from Models.Linear_model_parser import Linear_Model_parser
 from .optimizationModelAbc import OptimizationModel
 
 class LinearModel(OptimizationModel):

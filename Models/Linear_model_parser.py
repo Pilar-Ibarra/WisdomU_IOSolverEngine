@@ -32,5 +32,3 @@ class Linear_Model_parser:
         }
         with open(file,"w")as f:
          json.dump(data,f,indent=4)
-  
-    

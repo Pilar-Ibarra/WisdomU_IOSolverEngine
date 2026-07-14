@@ -1,29 +1,25 @@
-# WisdomU: IO-Solver Engine 
+# WisdomU: IO-Solver Engine
 
-**WisdomU** is a solving engine for **Operations Research** problems, developed in Python. This project translates complex mathematical models (based on the methodology of *Hillier & Lieberman*) into functional and scalable algorithms.
+**WisdomU** is a solving engine for **Operations Research** problems, developed in Python. This project translates complex mathematical models (based on the methodology presented in *Hillier & Lieberman*) into functional algorithms.
 
-##  Technical Features
+## Technical Features
 
-- **Clean Architecture:** Implementation of abstract classes and inheritance to decouple mathematical models from solving algorithms (Solvers).
-- **Object-Oriented Design (OOD):** Extensive use of SOLID principles to ensure the code is maintainable and extensible.
-- **Scalability:** Designed to handle multiple decision variables and constraints dynamically.
+- **Clean Architecture:** Implements abstract classes and inheritance to decouple mathematical models from solving algorithms.
+- **Object-Oriented Design (OOD):** Applies object-oriented principles to create an extensible and maintainable codebase.
+- **Scalability:** Designed to support optimization problems with varying numbers of decision variables and constraints.
 
 ## Project Structure
 
-- `models/`: Contains the logic of mathematical models and the abstract base class.
-- `solvers/`: Implementation of solving algorithms (e.g., Simplex, heuristic methods).
-- `utils/`: Auxiliary tools for data processing and validation.
-- `notes/`:Descriptions of the operation the programmed modules and theory on which they are based.
+- `models/`: Contains mathematical models and the abstract base classes.
+- `solvers/`: Implements solving algorithms (e.g., Simplex and Graphical Method).
+- `utils/`: Provides helper functions for data processing and validation.
+- `notes/`: Contains documentation explaining the implemented modules and the underlying theory.
 
 ## Technologies Used
-- **Language:** Python 3.14.3
-- **Environment:** VS Code + Git
-- **Core Theory:** *Introduction to Operations Research* (Hillier & Lieberman, 9th Ed).
 
-## 📈 Roadmap (In Development)
-- [ ] Integration with optimization libraries for cases with more than 5 variables.
-- [ ] Enhanced command-line interface (CLI).
-- [ ] Detailed technical documentation for each algorithm.
+- **Language:** Python 3.14.3
+- **Development Environment:** VS Code, Git
+- **Core Theory:** *Introduction to Operations Research* (Hillier & Lieberman, 9th Ed.)
+
 
 ---
-*This is an academic project constantly evolving towards the development of high-quality software.*

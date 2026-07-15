@@ -12,7 +12,8 @@ class LinearModel(OptimizationModel):
         self.A: List[List[float]] = []  # Matriz de coeficientes de las restricciones
         self.b: List[float] = []        # Vector de términos independientes
         self.symbols: List[str] = []    # Tipos de restricciones (<=, >=, =)
-        self.max_or_min: str = "max"  # "max" or "min"        self.non_negativity: bool = True
+        self.max_or_min: str = "max"  # "max" or "min"
+        self.non_negativity: bool = True
         #mueve el json hacia otra capa
     #model = Linear_Model_parser.from_json("problem.json")# esto tambien para afuera
     def get_objective_coefficients(self) -> List[float]:
@@ -25,7 +26,7 @@ class LinearModel(OptimizationModel):
         return self.symbols.copy()
 #Dudas ira aqui o neh?
     def objective_function(self, x: List[float]) -> float:
-     return float(numpy.dot(self.c, x))
+        return float(sum(ci * xi for ci, xi in zip(self.c, x)))
     def check_dimension_constraints(self,x:List[float])->bool:
         #validación de dimensiones,Zip recorre dos vectores a la vez posició a1 con A2 
         for i, row in enumerate(self.A):

@@ -2,7 +2,6 @@ import json
 from typing import List
 #from Models.Linear_model_parser import Linear_Model_parser
 from .optimizationModelAbc import OptimizationModel
-
 class LinearModel(OptimizationModel):
     def __init__(self, name):
         super().__init__(name)
